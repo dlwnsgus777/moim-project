@@ -1,13 +1,13 @@
-package com.youth.moin;
+package com.youth.moim;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MoinApplication {
+public class MoimApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MoinApplication.class, args);
+		SpringApplication.run(MoimApplication.class, args);
 	}
 
 }

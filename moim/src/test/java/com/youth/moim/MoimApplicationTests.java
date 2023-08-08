@@ -1,10 +1,10 @@
-package com.youth.moin;
+package com.youth.moim;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MoinApplicationTests {
+class MoimApplicationTests {
 
 	@Test
 	void contextLoads() {
