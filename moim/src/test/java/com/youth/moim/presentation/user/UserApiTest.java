@@ -12,13 +12,13 @@ public class UserApiTest {
     UserRequest.SignInOrganizer request = new UserRequest.SignInOrganizer(
             "이름",
             "19930927",
-            "MALE",
+            Gender.MALE,
             "dlwnsgus",
             "password",
             "dlwnsgus777@test.com",
             "company"
     );
-
+    System.out.println(request.gender());
 
     // when
 
@@ -29,7 +29,7 @@ public class UserApiTest {
     public record SignInOrganizer(
             String name,
             String birth,
-            String gender,
+            Gender gender,
             String id,
             String password,
             String email,
@@ -37,6 +37,9 @@ public class UserApiTest {
     ) {
 
     }
+  }
 
+  public enum Gender {
+    FEMALE, MALE
   }
 }
