@@ -1,27 +1,24 @@
 package com.youth.moim.presentation.user;
 
+import com.youth.moim.ApiTest;
 import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
 import com.youth.moim.infrastructure.user.UserRepository;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-public class UserApiTest {
-  @Autowired
-  private UserController userController;
+public class UserApiTest extends ApiTest {
   @Autowired
   private UserRepository userRepository;
-
-  @BeforeEach
-  void setUp() {
-  }
 
   @Test
   @DisplayName("모임 주최자 유저 저장 테스트")
@@ -39,7 +36,13 @@ public class UserApiTest {
     );
 
     // when
-    userController.signIn(request);
+    RestAssured.given().log().all()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(request)
+            .when()
+            .post("/api/users/sign-in")
+            .then().log().all()
+            .statusCode(HttpStatus.CREATED.value());
 
     // then
     User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new IllegalArgumentException("저장실패"));
