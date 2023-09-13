@@ -1,5 +1,8 @@
 package com.youth.moim.presentation.user;
 
+import com.youth.moim.domain.Gender;
+import com.youth.moim.domain.User;
+
 public class UserRequest {
     public record SignInOrganizer(
             String name,

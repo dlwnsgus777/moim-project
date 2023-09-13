@@ -1,22 +1,25 @@
 package com.youth.moim.presentation.user;
 
+import com.youth.moim.domain.Gender;
+import com.youth.moim.domain.User;
+import com.youth.moim.infrastructure.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 public class UserApiTest {
+  @Autowired
   private UserController userController;
+  @Autowired
   private UserRepository userRepository;
 
   @BeforeEach
   void setUp() {
-    userRepository = new UserRepository();
-    UserStore userStore = new UserStore(userRepository);
-    UserReader userReader = new UserReader(userRepository);
-    UserService userService = new UserService(userStore, userReader);
-    userController = new UserController(userService);
   }
 
   @Test
@@ -40,7 +43,5 @@ public class UserApiTest {
     User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new IllegalArgumentException("저장실패"));
     assertThat(userRepository.findAll().size()).isNotEqualTo(0);
     assertThat(user.getEmail()).isEqualTo(request.email());
-
   }
-
 }
