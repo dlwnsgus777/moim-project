@@ -23,7 +23,7 @@ public class UserApiTest {
   }
 
   @Test
-  @DisplayName("유저 저장 테스트")
+  @DisplayName("모임 주최자 유저 저장 테스트")
   void test20230912213527() {
     // given
     UserRequest.SignInOrganizer request = new UserRequest.SignInOrganizer(
