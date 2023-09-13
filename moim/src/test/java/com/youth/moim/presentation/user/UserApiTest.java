@@ -2,6 +2,7 @@ package com.youth.moim.presentation.user;
 
 
 import com.youth.moim.ApiTest;
+import com.youth.moim.api.Scenario;
 import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
@@ -25,30 +26,13 @@ public class UserApiTest extends ApiTest {
   @DisplayName("모임 주최자 유저 저장 테스트")
   void test20230912213527() {
     // given
-    UserRequest.SignInOrganizer request = new UserRequest.SignInOrganizer(
-            "이름",
-            "19930927",
-            Gender.MALE,
-            "dlwnsgus",
-            "password",
-            "dlwnsgus777@test.com",
-            "company",
-            MoimRule.ORGANIZER
-    );
-
-    // when
-    RestAssured.given().log().all()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(request)
-            .when()
-            .post("/api/users/sign-in")
-            .then().log().all()
-            .statusCode(HttpStatus.CREATED.value());
+    String email = "dlwnsgus777@test.com";
+    Scenario.signInOrganizerApi().email(email).request();
 
     // then
-    User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new IllegalArgumentException("저장실패"));
+    User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
     assertThat(userRepository.findAll().size()).isNotEqualTo(0);
-    assertThat(user.getEmail()).isEqualTo(request.email());
+    assertThat(user.getEmail()).isEqualTo(email);
     assertThat(user.getRule()).isEqualTo(MoimRule.ORGANIZER);
   }
 }
