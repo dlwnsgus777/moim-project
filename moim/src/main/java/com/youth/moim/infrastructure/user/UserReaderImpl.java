@@ -1,7 +1,7 @@
-package com.youth.moim.infrastructure;
+package com.youth.moim.infrastructure.user;
 
-import com.youth.moim.domain.User;
-import com.youth.moim.domain.UserReader;
+import com.youth.moim.domain.user.User;
+import com.youth.moim.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

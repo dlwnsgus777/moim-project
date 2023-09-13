@@ -1,6 +1,6 @@
 package com.youth.moim.presentation.user;
 
-import com.youth.moim.application.UserService;
+import com.youth.moim.application.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

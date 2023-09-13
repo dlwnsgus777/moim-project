@@ -1,8 +1,8 @@
-package com.youth.moim.application;
+package com.youth.moim.application.user;
 
-import com.youth.moim.domain.User;
-import com.youth.moim.infrastructure.UserReaderImpl;
-import com.youth.moim.infrastructure.UserStoreImpl;
+import com.youth.moim.domain.user.User;
+import com.youth.moim.infrastructure.user.UserReaderImpl;
+import com.youth.moim.infrastructure.user.UserStoreImpl;
 import com.youth.moim.presentation.user.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

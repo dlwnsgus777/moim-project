@@ -1,12 +1,8 @@
-package com.youth.moim.infrastructure;
+package com.youth.moim.infrastructure.user;
 
-import com.youth.moim.domain.User;
+import com.youth.moim.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {

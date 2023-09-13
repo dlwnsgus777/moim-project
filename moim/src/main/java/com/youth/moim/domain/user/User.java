@@ -1,4 +1,4 @@
-package com.youth.moim.domain;
+package com.youth.moim.domain.user;
 
 import groovy.transform.builder.Builder;
 import jakarta.persistence.Column;

@@ -1,9 +1,9 @@
 package com.youth.moim.presentation.user;
 
-import com.youth.moim.domain.Gender;
-import com.youth.moim.domain.MoimRule;
-import com.youth.moim.domain.User;
-import com.youth.moim.infrastructure.UserRepository;
+import com.youth.moim.domain.user.Gender;
+import com.youth.moim.domain.user.MoimRule;
+import com.youth.moim.domain.user.User;
+import com.youth.moim.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
