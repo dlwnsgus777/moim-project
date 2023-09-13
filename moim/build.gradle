@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	// lombok - 플레이트 코드를 최소화하기 위해 추가
 	compileOnly 'org.projectlombok:lombok'

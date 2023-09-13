@@ -13,20 +13,19 @@ public class UserRequest {
             String password,
             String email,
             String company,
-            MoimRule organizer) {
+            MoimRule rule) {
 
         public User toEntity() {
-            return new User(
-                    null,
-                    name,
-                    birth,
-                    gender,
-                    id,
-                    password,
-                    email,
-                    company,
-                    organizer
-            );
+            return User.builder()
+                    .birth(birth)
+                    .name(name)
+                    .company(company)
+                    .rule(rule)
+                    .gender(gender)
+                    .email(email)
+                    .password(password)
+                    .id(id)
+                    .build();
         }
     }
 }
