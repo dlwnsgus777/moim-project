@@ -1,6 +1,7 @@
 package com.youth.moim.presentation.user;
 
 import com.youth.moim.domain.Gender;
+import com.youth.moim.domain.MoimRule;
 import com.youth.moim.domain.User;
 import com.youth.moim.infrastructure.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,8 @@ public class UserApiTest {
             "dlwnsgus",
             "password",
             "dlwnsgus777@test.com",
-            "company"
+            "company",
+            MoimRule.ORGANIZER
     );
 
     // when
@@ -44,5 +46,6 @@ public class UserApiTest {
     User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new IllegalArgumentException("저장실패"));
     assertThat(userRepository.findAll().size()).isNotEqualTo(0);
     assertThat(user.getEmail()).isEqualTo(request.email());
+    assertThat(user.getRule()).isEqualTo(MoimRule.ORGANIZER);
   }
 }

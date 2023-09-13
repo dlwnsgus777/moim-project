@@ -1,6 +1,7 @@
 package com.youth.moim.presentation.user;
 
 import com.youth.moim.domain.Gender;
+import com.youth.moim.domain.MoimRule;
 import com.youth.moim.domain.User;
 
 public class UserRequest {
@@ -11,8 +12,8 @@ public class UserRequest {
             String id,
             String password,
             String email,
-            String company
-    ) {
+            String company,
+            MoimRule organizer) {
 
         public User toEntity() {
             return new User(
@@ -23,7 +24,8 @@ public class UserRequest {
                     id,
                     password,
                     email,
-                    company
+                    company,
+                    organizer
             );
         }
     }
