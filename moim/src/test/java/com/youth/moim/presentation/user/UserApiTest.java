@@ -27,7 +27,6 @@ public class UserApiTest {
   @DisplayName("모임 주최자 유저 저장 테스트")
   void test20230912213527() {
     // given
-    // TODO: 유저 룰(주최자인지 참여자인지) 추가
     UserRequest.SignInOrganizer request = new UserRequest.SignInOrganizer(
             "이름",
             "19930927",
