@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("유저 관련 API 테스트")
 public class UserApiTest extends ApiTest {
   @Autowired
   private UserRepository userRepository;
@@ -34,5 +35,15 @@ public class UserApiTest extends ApiTest {
     assertThat(userRepository.findAll().size()).isNotEqualTo(0);
     assertThat(user.getEmail()).isEqualTo(email);
     assertThat(user.getRule()).isEqualTo(MoimRule.ORGANIZER);
+  }
+
+  @Test
+  @DisplayName("모임 참여자 유저 저장 테스트")
+  void test20230914183028() {
+    //given
+
+    //when
+
+    //then
   }
 }
