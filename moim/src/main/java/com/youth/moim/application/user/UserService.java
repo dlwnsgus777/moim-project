@@ -15,7 +15,7 @@ public class UserService {
     private final UserStoreImpl userStoreImpl;
     private final UserReaderImpl userReaderImpl;
 
-    public void signIn(UserRequest.SignInOrganizer request) {
+    public void signIn(UserRequest.SignIn request) {
         Optional<User> user = userReaderImpl.findByEmail(request.email());
         if (user.isEmpty()) {
             userStoreImpl.registerUser(request.toEntity());

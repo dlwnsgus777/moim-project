@@ -8,6 +8,8 @@ import io.restassured.RestAssured;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.util.List;
+
 public class SignInOrganizerApi {
     private String name = "이름";
     private String birth = "19930927";
@@ -16,6 +18,10 @@ public class SignInOrganizerApi {
     private String password = "password";
     private String email = "dlwnsgus777@test.com";
     private String company = "company";
+    List<String> ignoreFoods = List.of(
+            "새우"
+    );
+    String description = "description";
     private MoimRule rule = MoimRule.ORGANIZER;
 
     public SignInOrganizerApi name(String name) {
@@ -58,8 +64,18 @@ public class SignInOrganizerApi {
         return this;
     }
 
+    public SignInOrganizerApi ignoreFoods(List<String> ignoreFoods) {
+        this.ignoreFoods = ignoreFoods;
+        return this;
+    }
+
+    public SignInOrganizerApi description(String description) {
+        this.description = description;
+        return this;
+    }
+
     public Scenario request() {
-        UserRequest.SignInOrganizer request = new UserRequest.SignInOrganizer(
+        UserRequest.SignIn request = new UserRequest.SignIn(
                 name,
                 birth,
                 gender,
@@ -67,6 +83,8 @@ public class SignInOrganizerApi {
                 password,
                 email,
                 company,
+                ignoreFoods,
+                description,
                 rule
         );
 

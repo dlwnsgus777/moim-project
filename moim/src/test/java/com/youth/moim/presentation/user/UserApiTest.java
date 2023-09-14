@@ -28,12 +28,14 @@ public class UserApiTest extends ApiTest {
   void test20230912213527() {
     // given
     String email = "dlwnsgus777@test.com";
-    Scenario.signInOrganizerApi().email(email).request();
+    Scenario.signInOrganizerApi().email(email).ignoreFoods(null).description(null).request();
 
     // then
     User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
     assertThat(userRepository.findAll().size()).isNotEqualTo(0);
     assertThat(user.getEmail()).isEqualTo(email);
+    assertThat(user.getIgnoreFoods()).isNull();
+    assertThat(user.getDescription()).isNull();
     assertThat(user.getRule()).isEqualTo(MoimRule.ORGANIZER);
   }
 
@@ -41,38 +43,17 @@ public class UserApiTest extends ApiTest {
   @DisplayName("모임 참여자 유저 저장 테스트")
   void test20230914183028() {
     //given
-    String name = "이름";
-    String birth = "19930927";
-    Gender gender = Gender.MALE;
-    String id = "dlwnsgus";
-    String password = "password";
-    String email = "dlwnsgus777@test.com";
-    List<String> ignoreFoods = List.of(
-            "새우"
-    );
-    String description = "description";
     MoimRule rule = MoimRule.HOST;
-
-    UserRequest.SignInHost request = new UserRequest.SignInHost(
-            name,
-            birth,
-            gender,
-            id,
-            password,
-            email,
-            ignoreFoods,
-            description,
-            rule
-    );
-
-    //when
-    userController.signInHost(request);
+    String email = "dlwnsgus777@test.com";
+    Scenario.signInOrganizerApi().email(email).rule(rule).request();
 
 
     // then
     User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
     assertThat(userRepository.findAll().size()).isNotEqualTo(0);
     assertThat(user.getEmail()).isEqualTo(email);
+    assertThat(user.getIgnoreFoods()).isNotNull();
+    assertThat(user.getDescription()).isNotNull();
     assertThat(user.getRule()).isEqualTo(MoimRule.HOST);
   }
 }

@@ -5,9 +5,10 @@ import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserRequest {
-    public record SignInOrganizer(
+    public record SignIn(
             String name,
             String birth,
             Gender gender,
@@ -15,19 +16,36 @@ public class UserRequest {
             String password,
             String email,
             String company,
+            List<String> ignoreFoods,
+            String description,
             MoimRule rule) {
 
         public User toEntity() {
-            return User.builder()
-                    .birth(birth)
-                    .name(name)
-                    .company(company)
-                    .rule(rule)
-                    .gender(gender)
-                    .email(email)
-                    .password(password)
-                    .id(id)
-                    .build();
+            if (rule.equals(MoimRule.HOST)) {
+                return User.builder()
+                        .birth(birth)
+                        .name(name)
+                        .rule(rule)
+                        .gender(gender)
+                        .email(email)
+                        .password(password)
+                        .id(id)
+                        .ignoreFoods(ignoreFoods.stream().collect(Collectors.joining(",")))
+                        .description(description)
+                        .build();
+            } else {
+                return User.builder()
+                        .birth(birth)
+                        .name(name)
+                        .company(company)
+                        .rule(rule)
+                        .gender(gender)
+                        .email(email)
+                        .password(password)
+                        .id(id)
+                        .build();
+            }
+
         }
     }
 

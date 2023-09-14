@@ -48,8 +48,27 @@ public class User {
     @Column(name = "company")
     private String company;
 
+    @Column(name = "ignore_foods")
+    private String ignoreFoods;
+
+    @Column(name = "description")
+    private String description;
+
     @Builder
-    public User(Long idx, String name, String birth, Gender gender, String id, String password, String email, String company, MoimRule rule) {
+
+    public User(
+            Long idx,
+            String name,
+            String birth,
+            Gender gender,
+            String id,
+            String password,
+            String email,
+            MoimRule rule,
+            String company,
+            String ignoreFoods,
+            String description
+    ) {
         this.idx = idx;
         this.name = name;
         this.birth = birth;
@@ -57,7 +76,9 @@ public class User {
         this.id = id;
         this.password = password;
         this.email = email;
-        this.company = company;
         this.rule = rule;
+        this.company = company;
+        this.ignoreFoods = ignoreFoods;
+        this.description = description;
     }
 }
