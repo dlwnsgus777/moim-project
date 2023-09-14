@@ -4,6 +4,8 @@ import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
 
+import java.util.List;
+
 public class UserRequest {
     public record SignInOrganizer(
             String name,
@@ -27,5 +29,19 @@ public class UserRequest {
                     .id(id)
                     .build();
         }
+    }
+
+    public record SignInHost(
+            String name,
+            String birth,
+            Gender gender,
+            String id,
+            String password,
+            String email,
+            List<String> ignoreFoods,
+            String description,
+            MoimRule rule
+    ) {
+
     }
 }

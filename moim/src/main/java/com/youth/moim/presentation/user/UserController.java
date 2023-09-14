@@ -13,7 +13,7 @@ public class UserController {
 
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.CREATED)
-    public void signIn(@RequestBody UserRequest.SignInOrganizer request) {
+    public void signInOrganizer(@RequestBody UserRequest.SignInOrganizer request) {
         userService.signIn(request);
     }
 }
