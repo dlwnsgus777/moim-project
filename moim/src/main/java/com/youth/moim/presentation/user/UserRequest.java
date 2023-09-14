@@ -3,6 +3,7 @@ package com.youth.moim.presentation.user;
 import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class UserRequest {
             String description,
             MoimRule rule) {
 
-        public User toEntity() {
+        public User toEntity(PasswordEncoder passwordEncoder) {
             if (rule.equals(MoimRule.HOST)) {
                 return User.builder()
                         .birth(birth)
@@ -28,7 +29,7 @@ public class UserRequest {
                         .rule(rule)
                         .gender(gender)
                         .email(email)
-                        .password(password)
+                        .password(passwordEncoder.encode(password))
                         .id(id)
                         .ignoreFoods(ignoreFoods.stream().collect(Collectors.joining(",")))
                         .description(description)
@@ -41,7 +42,7 @@ public class UserRequest {
                         .rule(rule)
                         .gender(gender)
                         .email(email)
-                        .password(password)
+                        .password(passwordEncoder.encode(password))
                         .id(id)
                         .build();
             }

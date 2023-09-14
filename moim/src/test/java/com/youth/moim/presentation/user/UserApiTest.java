@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("유저 관련 API 테스트")
@@ -28,7 +29,8 @@ public class UserApiTest extends ApiTest {
   void test20230912213527() {
     // given
     String email = "dlwnsgus777@test.com";
-    Scenario.signInOrganizerApi().email(email).ignoreFoods(null).description(null).request();
+    String password = "password";
+    Scenario.signInOrganizerApi().email(email).password(password).ignoreFoods(null).description(null).request();
 
     // then
     User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
@@ -36,6 +38,7 @@ public class UserApiTest extends ApiTest {
     assertThat(user.getEmail()).isEqualTo(email);
     assertThat(user.getIgnoreFoods()).isNull();
     assertThat(user.getDescription()).isNull();
+    assertThat(user.getPassword()).isNotEqualTo(password);
     assertThat(user.getRule()).isEqualTo(MoimRule.ORGANIZER);
   }
 
@@ -45,7 +48,8 @@ public class UserApiTest extends ApiTest {
     //given
     MoimRule rule = MoimRule.HOST;
     String email = "dlwnsgus777@test.com";
-    Scenario.signInOrganizerApi().email(email).rule(rule).request();
+    String password = "password";
+    Scenario.signInOrganizerApi().email(email).password(password).rule(rule).request();
 
 
     // then
@@ -54,6 +58,7 @@ public class UserApiTest extends ApiTest {
     assertThat(user.getEmail()).isEqualTo(email);
     assertThat(user.getIgnoreFoods()).isNotNull();
     assertThat(user.getDescription()).isNotNull();
+    assertThat(user.getPassword()).isNotEqualTo(password);
     assertThat(user.getRule()).isEqualTo(MoimRule.HOST);
   }
 }
