@@ -15,13 +15,13 @@ public class SignInOrganizerApi {
     private String birth = "19930927";
     private Gender gender = Gender.MALE;
     private String id = "dlwnsgus";
-    private String password = "password";
+    private String password = "!2Password";
     private String email = "dlwnsgus777@test.com";
     private String company = "company";
-    List<String> ignoreFoods = List.of(
+    private List<String> ignoreFoods = List.of(
             "새우"
     );
-    String description = "description";
+    private String description = "description";
     private MoimRule rule = MoimRule.ORGANIZER;
 
     public SignInOrganizerApi name(String name) {

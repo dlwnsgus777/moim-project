@@ -7,9 +7,12 @@ import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
 import com.youth.moim.infrastructure.user.UserRepository;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class UserApiTest extends ApiTest {
   void test20230912213527() {
     // given
     String email = "dlwnsgus777@test.com";
-    String password = "password";
+    String password = "!2Password";
     Scenario.signInOrganizerApi().email(email).password(password).ignoreFoods(null).description(null).request();
 
     // then
@@ -48,7 +51,7 @@ public class UserApiTest extends ApiTest {
     //given
     MoimRule rule = MoimRule.HOST;
     String email = "dlwnsgus777@test.com";
-    String password = "password";
+    String password = "!2Password";
     Scenario.signInOrganizerApi().email(email).password(password).rule(rule).request();
 
 
@@ -60,5 +63,46 @@ public class UserApiTest extends ApiTest {
     assertThat(user.getDescription()).isNotNull();
     assertThat(user.getPassword()).isNotEqualTo(password);
     assertThat(user.getRule()).isEqualTo(MoimRule.HOST);
+  }
+
+  @Test
+  @DisplayName("비밀번호 정책에 맞지 않으면 실패한다.")
+  void test202309141830289() {
+    //given
+    String name = "이름";
+    String birth = "19930927";
+    Gender gender = Gender.MALE;
+    String id = "dlwnsgus";
+    String password = "password";
+    String email = "dlwnsgus777@test.com";
+    String company = "company";
+    List<String> ignoreFoods = List.of(
+            "새우"
+    );
+    String description = "description";
+    MoimRule rule = MoimRule.ORGANIZER;
+    UserRequest.SignIn request = new UserRequest.SignIn(
+            name,
+            birth,
+            gender,
+            id,
+            password,
+            email,
+            company,
+            ignoreFoods,
+            description,
+            rule
+    );
+
+
+    // then
+    RestAssured.given().log().all()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(request)
+            .when()
+            .post("/api/users/sign-in")
+            .then().log().all()
+            .statusCode(HttpStatus.BAD_REQUEST.value());
+
   }
 }

@@ -1,6 +1,7 @@
 package com.youth.moim.presentation.user;
 
 import com.youth.moim.application.user.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ public class UserController {
 
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.CREATED)
-    public void signInOrganizer(@RequestBody UserRequest.SignIn request) {
+    public void signInOrganizer(@RequestBody @Valid UserRequest.SignIn request) {
         userService.signIn(request);
     }
 }
