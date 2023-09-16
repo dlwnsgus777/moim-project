@@ -18,10 +18,6 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/sign-in")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void signInOrganizer(@RequestBody @Valid UserRequest.SignIn request) {
-        userService.signIn(request);
-    }
+
 
 }
