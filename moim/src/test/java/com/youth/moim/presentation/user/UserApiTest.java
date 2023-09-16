@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("유저 관련 API 테스트")
@@ -34,7 +33,7 @@ public class UserApiTest extends ApiTest {
     // given
     String email = "dlwnsgus777@test.com";
     String password = "!2Password";
-    Scenario.signInOrganizerApi().email(email).password(password).ignoreFoods(null).description(null).request();
+    Scenario.signInApi().email(email).password(password).ignoreFoods(null).description(null).request();
 
     // then
     User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
@@ -53,7 +52,7 @@ public class UserApiTest extends ApiTest {
     MoimRule rule = MoimRule.HOST;
     String email = "dlwnsgus777@test.com";
     String password = "!2Password";
-    Scenario.signInOrganizerApi().email(email).password(password).rule(rule).request();
+    Scenario.signInApi().email(email).password(password).rule(rule).request();
 
 
     // then

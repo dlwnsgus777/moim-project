@@ -7,9 +7,9 @@ import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
 import com.youth.moim.infrastructure.user.UserRepository;
-import com.youth.moim.presentation.user.UserController;
-import com.youth.moim.presentation.user.UserRequest;
 import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("유저 관련 API 테스트")
@@ -32,7 +33,7 @@ public class AuthApiTest extends ApiTest {
     // given
     String email = "dlwnsgus777@test.com";
     String password = "!2Password";
-    Scenario.signInOrganizerApi().email(email).password(password).ignoreFoods(null).description(null).request();
+    Scenario.signInApi().email(email).password(password).ignoreFoods(null).description(null).request();
 
     // then
     User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
@@ -51,7 +52,7 @@ public class AuthApiTest extends ApiTest {
     MoimRule rule = MoimRule.HOST;
     String email = "dlwnsgus777@test.com";
     String password = "!2Password";
-    Scenario.signInOrganizerApi().email(email).password(password).rule(rule).request();
+    Scenario.signInApi().email(email).password(password).rule(rule).request();
 
 
     // then
@@ -104,4 +105,32 @@ public class AuthApiTest extends ApiTest {
             .statusCode(HttpStatus.BAD_REQUEST.value());
 
   }
+
+  @Test
+  @DisplayName("사용자 로그인 테스트")
+  void test202309143183028() {
+    //given
+    String email = "dlwnsgus777@test.com";
+    String password = "!2Password";
+    Scenario.signInApi().email(email).password(password).request();
+
+    AuthRequest.SignUp request = new AuthRequest.SignUp(
+            email,
+            password
+    );
+
+    // when
+    ExtractableResponse<Response> result = RestAssured.given().log().all()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(request)
+            .when()
+            .post("/api/auth/sign-up")
+            .then().log().all()
+            .extract();
+
+    // then
+    AuthResponse.SignUp signUp = result.body().as(AuthResponse.SignUp.class);
+    assertThat(signUp.token()).isNotNull();
+  }
+
 }

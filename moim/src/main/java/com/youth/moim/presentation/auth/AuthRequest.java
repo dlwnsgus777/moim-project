@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
@@ -69,5 +71,15 @@ public class AuthRequest {
             }
 
         }
+    }
+
+    public record SignUp(
+            @NotBlank(message = "로그인 아이디를 입력해주세요.")
+            String id,
+
+            @NotBlank(message = "비밀번호를 입력해주세요.")
+            String password
+    ) {
+
     }
 }
