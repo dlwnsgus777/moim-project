@@ -1,7 +1,6 @@
 package com.youth.moim.presentation.auth;
 
 import com.youth.moim.application.auth.AuthService;
-import com.youth.moim.presentation.user.UserRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,13 @@ public class AuthController {
 
   @PostMapping("/sign-in")
   @ResponseStatus(HttpStatus.CREATED)
-  public void signInOrganizer(@RequestBody @Valid AuthRequest.SignIn request) {
+  public void signIn(@RequestBody @Valid AuthRequest.SignIn request) {
     authService.signIn(request);
+  }
+
+  @PostMapping("/sign-up")
+  public AuthResponse.SignUp signUp(@RequestBody @Valid AuthRequest.SignIn request) {
+    String token = authService.signUp(request);
+    return new AuthResponse.SignUp(token);
   }
 }

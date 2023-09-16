@@ -24,4 +24,8 @@ public class AuthService {
             userStoreImpl.registerUser(request.toEntity(passwordEncoder));
         }
     }
+
+    public String signUp(AuthRequest.SignIn request) {
+        return null;
+    }
 }
