@@ -110,12 +110,12 @@ public class AuthApiTest extends ApiTest {
   @DisplayName("사용자 로그인 테스트")
   void test202309143183028() {
     //given
-    String email = "dlwnsgus777@test.com";
+    String loginId = "dlwnsgus777@test.com";
     String password = "!2Password";
-    Scenario.signInApi().email(email).password(password).request();
+    Scenario.signInApi().id(loginId).password(password).request();
 
     AuthRequest.SignUp request = new AuthRequest.SignUp(
-            email,
+            loginId,
             password
     );
 

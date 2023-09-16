@@ -19,7 +19,7 @@ public class AuthController {
   }
 
   @PostMapping("/sign-up")
-  public AuthResponse.SignUp signUp(@RequestBody @Valid AuthRequest.SignIn request) {
+  public AuthResponse.SignUp signUp(@RequestBody @Valid AuthRequest.SignUp request) {
     String token = authService.signUp(request);
     return new AuthResponse.SignUp(token);
   }
