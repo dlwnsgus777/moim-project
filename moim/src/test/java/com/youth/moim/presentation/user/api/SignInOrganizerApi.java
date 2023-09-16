@@ -8,11 +8,12 @@ import io.restassured.RestAssured;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class SignInOrganizerApi {
     private String name = "이름";
-    private String birth = "19930927";
+    private LocalDate birth = LocalDate.of(1993, 9, 27);
     private Gender gender = Gender.MALE;
     private String id = "dlwnsgus";
     private String password = "!2Password";
@@ -29,7 +30,7 @@ public class SignInOrganizerApi {
         return this;
     }
 
-    public SignInOrganizerApi birth(String birth) {
+    public SignInOrganizerApi birth(LocalDate birth) {
         this.birth = birth;
         return this;
     }

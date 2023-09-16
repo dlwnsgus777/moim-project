@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,8 +18,8 @@ public class UserRequest {
             @NotBlank(message = "이름을 입력해주세요.")
             String name,
 
-            @NotBlank(message = "생년월일을 입력해주세요.")
-            String birth,
+            @NotNull(message = "생년월일을 입력해주세요.")
+            LocalDate birth,
 
             @NotNull(message = "성별을 선택해주세요.")
             Gender gender,

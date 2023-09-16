@@ -14,6 +14,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,7 +29,7 @@ public class User {
     private String name;
 
     @Column(name = "birth")
-    private String birth;
+    private LocalDate birth;
 
     @Column(name = "gender")
     private Gender gender;
@@ -59,7 +61,7 @@ public class User {
     public User(
             Long idx,
             String name,
-            String birth,
+            LocalDate birth,
             Gender gender,
             String id,
             String password,
