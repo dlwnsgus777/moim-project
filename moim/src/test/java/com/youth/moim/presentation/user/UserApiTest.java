@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -70,7 +71,7 @@ public class UserApiTest extends ApiTest {
   void test202309141830289() {
     //given
     String name = "이름";
-    String birth = "19930927";
+    LocalDate birth = LocalDate.of(1993, 9, 27);
     Gender gender = Gender.MALE;
     String id = "dlwnsgus";
     String password = "password";

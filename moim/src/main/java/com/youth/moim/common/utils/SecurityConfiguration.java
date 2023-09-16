@@ -1,4 +1,4 @@
-package com.youth.moim.common;
+package com.youth.moim.common.utils;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
