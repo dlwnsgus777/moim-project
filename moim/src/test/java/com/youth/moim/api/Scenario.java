@@ -1,9 +1,10 @@
 package com.youth.moim.api;
 
-import com.youth.moim.presentation.user.api.SignInOrganizerApi;
+
+import com.youth.moim.presentation.auth.api.SignInApi;
 
 public class Scenario {
-    public static SignInOrganizerApi signInOrganizerApi() {
-        return new SignInOrganizerApi();
+    public static SignInApi signInOrganizerApi() {
+        return new SignInApi();
     }
 }

@@ -1,4 +1,4 @@
-package com.youth.moim.presentation.user;
+package com.youth.moim.presentation.auth;
 
 
 import com.youth.moim.ApiTest;
@@ -7,6 +7,8 @@ import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
 import com.youth.moim.domain.user.User;
 import com.youth.moim.infrastructure.user.UserRepository;
+import com.youth.moim.presentation.user.UserController;
+import com.youth.moim.presentation.user.UserRequest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,16 +19,12 @@ import org.springframework.http.MediaType;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("유저 관련 API 테스트")
-public class UserApiTest extends ApiTest {
+public class AuthApiTest extends ApiTest {
   @Autowired
   private UserRepository userRepository;
-
-  @Autowired
-  private UserController userController;
 
   @Test
   @DisplayName("모임 주최자 유저 저장 테스트")
@@ -82,7 +80,7 @@ public class UserApiTest extends ApiTest {
     );
     String description = "description";
     MoimRule rule = MoimRule.ORGANIZER;
-    UserRequest.SignIn request = new UserRequest.SignIn(
+    AuthRequest.SignIn request = new AuthRequest.SignIn(
             name,
             birth,
             gender,
