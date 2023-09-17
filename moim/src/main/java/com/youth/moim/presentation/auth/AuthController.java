@@ -1,6 +1,7 @@
 package com.youth.moim.presentation.auth;
 
 import com.youth.moim.application.auth.AuthService;
+import com.youth.moim.domain.user.UserInfo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
