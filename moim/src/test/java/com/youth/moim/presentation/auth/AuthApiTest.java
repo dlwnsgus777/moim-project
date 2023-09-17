@@ -132,5 +132,4 @@ public class AuthApiTest extends ApiTest {
     AuthResponse.SignUp signUp = result.body().as(AuthResponse.SignUp.class);
     assertThat(signUp.token()).isNotNull();
   }
-
 }
