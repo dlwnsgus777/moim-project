@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class SignUpApi {
-    private String loginId = "dlwnsgus777@test.com";
+    private String loginId = "dlwnsgus";
     private String password = "!2Password";
 
     public SignUpApi loginId(String loginId) {

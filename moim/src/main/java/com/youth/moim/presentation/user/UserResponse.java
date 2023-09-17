@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserResponse {
-    public record SignIn(
+    public record RetrieveUser(
             UserInfo.Main user
     ) {
 
