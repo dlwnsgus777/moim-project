@@ -1,9 +1,9 @@
-package com.youth.moim.presentation.user.api;
+package com.youth.moim.presentation.auth.api;
 
 import com.youth.moim.api.Scenario;
 import com.youth.moim.domain.user.Gender;
 import com.youth.moim.domain.user.MoimRule;
-import com.youth.moim.presentation.user.UserRequest;
+import com.youth.moim.presentation.auth.AuthRequest;
 import io.restassured.RestAssured;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import java.time.LocalDate;
 import java.util.List;
 
-public class SignInOrganizerApi {
+public class SignInApi {
     private String name = "이름";
     private LocalDate birth = LocalDate.of(1993, 9, 27);
     private Gender gender = Gender.MALE;
@@ -25,58 +25,58 @@ public class SignInOrganizerApi {
     private String description = "description";
     private MoimRule rule = MoimRule.ORGANIZER;
 
-    public SignInOrganizerApi name(String name) {
+    public SignInApi name(String name) {
         this.name = name;
         return this;
     }
 
-    public SignInOrganizerApi birth(LocalDate birth) {
+    public SignInApi birth(LocalDate birth) {
         this.birth = birth;
         return this;
     }
 
-    public SignInOrganizerApi gender(Gender gender) {
+    public SignInApi gender(Gender gender) {
         this.gender = gender;
         return this;
     }
 
-    public SignInOrganizerApi id(String id) {
+    public SignInApi id(String id) {
         this.id = id;
         return this;
     }
 
-    public SignInOrganizerApi password(String password) {
+    public SignInApi password(String password) {
         this.password = password;
         return this;
     }
 
-    public SignInOrganizerApi email(String email) {
+    public SignInApi email(String email) {
         this.email = email;
         return this;
     }
 
-    public SignInOrganizerApi company(String company) {
+    public SignInApi company(String company) {
         this.company = company;
         return this;
     }
 
-    public SignInOrganizerApi rule(MoimRule rule) {
+    public SignInApi rule(MoimRule rule) {
         this.rule = rule;
         return this;
     }
 
-    public SignInOrganizerApi ignoreFoods(List<String> ignoreFoods) {
+    public SignInApi ignoreFoods(List<String> ignoreFoods) {
         this.ignoreFoods = ignoreFoods;
         return this;
     }
 
-    public SignInOrganizerApi description(String description) {
+    public SignInApi description(String description) {
         this.description = description;
         return this;
     }
 
     public Scenario request() {
-        UserRequest.SignIn request = new UserRequest.SignIn(
+        AuthRequest.SignIn request = new AuthRequest.SignIn(
                 name,
                 birth,
                 gender,
@@ -93,7 +93,7 @@ public class SignInOrganizerApi {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
                 .when()
-                .post("/api/users/sign-in")
+                .post("/api/auth/sign-in")
                 .then().log().all()
                 .statusCode(HttpStatus.CREATED.value());
 
