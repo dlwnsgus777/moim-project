@@ -33,7 +33,9 @@ public class SecurityConfiguration {
               session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             })
             .authorizeHttpRequests(request -> {
-              request.anyRequest().permitAll();
+              request.requestMatchers("/api/auth/**").permitAll();
+            }).authorizeHttpRequests(request -> {
+                request.anyRequest().authenticated();
             });
 
         http.addFilterBefore(new JwtTokenFilter(jwtTokenProvider), ExceptionTranslationFilter.class);
