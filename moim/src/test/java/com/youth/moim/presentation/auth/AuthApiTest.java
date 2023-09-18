@@ -22,7 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("유저 관련 API 테스트")
+@DisplayName("인증 관련 API 테스트")
 public class AuthApiTest extends ApiTest {
   @Autowired
   private UserRepository userRepository;
