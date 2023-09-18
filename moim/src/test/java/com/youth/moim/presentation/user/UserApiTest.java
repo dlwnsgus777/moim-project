@@ -3,11 +3,7 @@ package com.youth.moim.presentation.user;
 
 import com.youth.moim.ApiTest;
 import com.youth.moim.api.Scenario;
-import com.youth.moim.domain.user.Gender;
-import com.youth.moim.domain.user.MoimRule;
-import com.youth.moim.domain.user.User;
 import com.youth.moim.infrastructure.user.UserRepository;
-import com.youth.moim.presentation.auth.AuthRequest;
 import com.youth.moim.presentation.auth.AuthResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -18,10 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("유저 관련 API 테스트")

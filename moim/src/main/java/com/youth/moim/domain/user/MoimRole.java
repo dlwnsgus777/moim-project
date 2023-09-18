@@ -1,5 +1,5 @@
 package com.youth.moim.domain.user;
 
-public enum MoimRule {
+public enum MoimRole {
     ORGANIZER, HOST
 }
