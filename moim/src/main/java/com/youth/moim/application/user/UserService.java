@@ -1,6 +1,7 @@
 package com.youth.moim.application.user;
 
 import com.youth.moim.domain.user.User;
+import com.youth.moim.domain.user.UserInfo;
 import com.youth.moim.infrastructure.user.UserReaderImpl;
 import com.youth.moim.infrastructure.user.UserStoreImpl;
 import com.youth.moim.presentation.user.UserRequest;
@@ -22,5 +23,9 @@ public class UserService {
         if (user.isEmpty()) {
             userStoreImpl.registerUser(request.toEntity(passwordEncoder));
         }
+    }
+
+    public UserInfo.Main retrieveUser(Long idx) {
+        return null;
     }
 }

@@ -29,7 +29,8 @@ public class UserApiTest extends ApiTest {
   void test20230917230236() {
     // given
     Long userIdx = 1L;
-    AuthResponse.SignUp token = Scenario.signInApi().request()
+    String email = "dlwnsgus777@test.com";
+    AuthResponse.SignUp token = Scenario.signInApi().email(email).request()
             .signUpApi().request();
 
     // when
@@ -44,5 +45,6 @@ public class UserApiTest extends ApiTest {
     // then
     UserResponse.RetrieveUser response = result.body().as(UserResponse.RetrieveUser.class);
     assertThat(result.statusCode()).isEqualTo(HttpStatus.OK.value());
+    assertThat(response.user().email()).isEqualTo(email);
   }
 }
