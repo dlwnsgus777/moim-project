@@ -1,6 +1,6 @@
 package com.youth.moim.application.auth;
 
-import com.youth.moim.domain.auth.LoginUser;
+import com.youth.moim.domain.user.LoginUser;
 import com.youth.moim.domain.auth.LoginUserAdapter;
 import com.youth.moim.domain.user.User;
 import com.youth.moim.domain.user.UserReader;

@@ -2,7 +2,7 @@ package com.youth.moim.presentation.auth.api;
 
 import com.youth.moim.api.Scenario;
 import com.youth.moim.domain.user.Gender;
-import com.youth.moim.domain.user.MoimRule;
+import com.youth.moim.domain.user.MoimRole;
 import com.youth.moim.presentation.auth.AuthRequest;
 import io.restassured.RestAssured;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class SignInApi {
             "새우"
     );
     private String description = "description";
-    private MoimRule rule = MoimRule.ORGANIZER;
+    private MoimRole role = MoimRole.ORGANIZER;
 
     public SignInApi name(String name) {
         this.name = name;
@@ -60,8 +60,8 @@ public class SignInApi {
         return this;
     }
 
-    public SignInApi rule(MoimRule rule) {
-        this.rule = rule;
+    public SignInApi role(MoimRole role) {
+        this.role = role;
         return this;
     }
 
@@ -86,7 +86,7 @@ public class SignInApi {
                 company,
                 ignoreFoods,
                 description,
-                rule
+                role
         );
 
         RestAssured.given().log().all()

@@ -43,9 +43,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "rule")
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private MoimRule rule;
+    private MoimRole role;
 
     @Column(name = "company")
     private String company;
@@ -57,7 +57,6 @@ public class User {
     private String description;
 
     @Builder
-
     public User(
             Long idx,
             String name,
@@ -66,7 +65,7 @@ public class User {
             String id,
             String password,
             String email,
-            MoimRule rule,
+            MoimRole role,
             String company,
             String ignoreFoods,
             String description
@@ -78,7 +77,7 @@ public class User {
         this.id = id;
         this.password = password;
         this.email = email;
-        this.rule = rule;
+        this.role = role;
         this.company = company;
         this.ignoreFoods = ignoreFoods;
         this.description = description;

@@ -1,5 +1,6 @@
 package com.youth.moim.domain.auth;
 
+import com.youth.moim.domain.user.LoginUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

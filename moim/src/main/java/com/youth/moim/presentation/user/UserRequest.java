@@ -1,7 +1,7 @@
 package com.youth.moim.presentation.user;
 
 import com.youth.moim.domain.user.Gender;
-import com.youth.moim.domain.user.MoimRule;
+import com.youth.moim.domain.user.MoimRole;
 import com.youth.moim.domain.user.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -40,14 +40,14 @@ public class UserRequest {
             String company,
             List<String> ignoreFoods,
             String description,
-            MoimRule rule) {
+            MoimRole role) {
 
         public User toEntity(PasswordEncoder passwordEncoder) {
-            if (rule.equals(MoimRule.HOST)) {
+            if (role.equals(MoimRole.HOST)) {
                 return User.builder()
                         .birth(birth)
                         .name(name)
-                        .rule(rule)
+                        .role(role)
                         .gender(gender)
                         .email(email)
                         .password(passwordEncoder.encode(password))
@@ -60,7 +60,7 @@ public class UserRequest {
                         .birth(birth)
                         .name(name)
                         .company(company)
-                        .rule(rule)
+                        .role(role)
                         .gender(gender)
                         .email(email)
                         .password(passwordEncoder.encode(password))

@@ -20,4 +20,10 @@ public class UserReaderImpl implements UserReader {
         return userRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
     }
+
+    @Override
+    public User getByIdx(Long idx) {
+        return userRepository.findByIdx(idx)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
+    }
 }

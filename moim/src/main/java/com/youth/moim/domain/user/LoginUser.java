@@ -1,4 +1,4 @@
-package com.youth.moim.domain.auth;
+package com.youth.moim.domain.user;
 
 import lombok.Builder;
 import lombok.Getter;

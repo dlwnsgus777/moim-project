@@ -1,16 +1,11 @@
 package com.youth.moim.presentation.user;
 
 import com.youth.moim.application.user.UserService;
-import com.youth.moim.domain.user.Gender;
-import com.youth.moim.domain.user.MoimRule;
-import com.youth.moim.infrastructure.user.UserRepository;
-import jakarta.validation.Valid;
+import com.youth.moim.domain.user.LoginUser;
+import com.youth.moim.domain.user.UserInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +13,14 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    @GetMapping("/{idx}")
+    public UserResponse.RetrieveUser retrieveUser(@PathVariable(value = "idx") Long idx,
+                                                  @AuthenticationPrincipal(expression = "loginUser") LoginUser user) {
+        if (!idx.equals(user.getIdx())) {
+            throw new IllegalArgumentException("잘못된 요청입니다.");
+        }
 
-
+        UserInfo.Main result = userService.retrieveUser(idx);
+        return UserResponse.RetrieveUser.builder().user(result).build();
+    }
 }

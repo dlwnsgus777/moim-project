@@ -3,21 +3,20 @@ package com.youth.moim.presentation.user;
 
 import com.youth.moim.ApiTest;
 import com.youth.moim.api.Scenario;
-import com.youth.moim.domain.user.Gender;
-import com.youth.moim.domain.user.MoimRule;
-import com.youth.moim.domain.user.User;
+import com.youth.moim.domain.user.MoimRole;
 import com.youth.moim.infrastructure.user.UserRepository;
+import com.youth.moim.presentation.auth.AuthResponse;
 import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DisplayName("유저 관련 API 테스트")
 public class UserApiTest extends ApiTest {
@@ -28,81 +27,59 @@ public class UserApiTest extends ApiTest {
   private UserController userController;
 
   @Test
-  @DisplayName("모임 주최자 유저 저장 테스트")
-  void test20230912213527() {
+  @DisplayName("주최자가 자신의 정보를 조회할 수 있다.")
+  void test20230917230236() {
     // given
+    Long userIdx = 1L;
     String email = "dlwnsgus777@test.com";
-    String password = "!2Password";
-    Scenario.signInApi().email(email).password(password).ignoreFoods(null).description(null).request();
+    MoimRole role = MoimRole.ORGANIZER;
+    AuthResponse.SignUp token = Scenario.signInApi().email(email).role(role).request()
+            .signUpApi().request();
 
-    // then
-    User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
-    assertThat(userRepository.findAll().size()).isNotEqualTo(0);
-    assertThat(user.getEmail()).isEqualTo(email);
-    assertThat(user.getIgnoreFoods()).isNull();
-    assertThat(user.getDescription()).isNull();
-    assertThat(user.getPassword()).isNotEqualTo(password);
-    assertThat(user.getRule()).isEqualTo(MoimRule.ORGANIZER);
-  }
-
-  @Test
-  @DisplayName("모임 참여자 유저 저장 테스트")
-  void test20230914183028() {
-    //given
-    MoimRule rule = MoimRule.HOST;
-    String email = "dlwnsgus777@test.com";
-    String password = "!2Password";
-    Scenario.signInApi().email(email).password(password).rule(rule).request();
-
-
-    // then
-    User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("저장실패"));
-    assertThat(userRepository.findAll().size()).isNotEqualTo(0);
-    assertThat(user.getEmail()).isEqualTo(email);
-    assertThat(user.getIgnoreFoods()).isNotNull();
-    assertThat(user.getDescription()).isNotNull();
-    assertThat(user.getPassword()).isNotEqualTo(password);
-    assertThat(user.getRule()).isEqualTo(MoimRule.HOST);
-  }
-
-  @Test
-  @DisplayName("비밀번호 정책에 맞지 않으면 실패한다.")
-  void test202309141830289() {
-    //given
-    String name = "이름";
-    LocalDate birth = LocalDate.of(1993, 9, 27);
-    Gender gender = Gender.MALE;
-    String id = "dlwnsgus";
-    String password = "password";
-    String email = "dlwnsgus777@test.com";
-    String company = "company";
-    List<String> ignoreFoods = List.of(
-            "새우"
-    );
-    String description = "description";
-    MoimRule rule = MoimRule.ORGANIZER;
-    UserRequest.SignIn request = new UserRequest.SignIn(
-            name,
-            birth,
-            gender,
-            id,
-            password,
-            email,
-            company,
-            ignoreFoods,
-            description,
-            rule
-    );
-
-
-    // then
-    RestAssured.given().log().all()
+    // when
+    ExtractableResponse<Response> result = RestAssured.given().log().all()
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(request)
+            .header("Authorization", "Bearer " + token.token())
             .when()
-            .post("/api/auth/sign-in")
+            .get("/api/users/" + userIdx)
             .then().log().all()
-            .statusCode(HttpStatus.BAD_REQUEST.value());
+            .extract();
 
+    // then
+    UserResponse.RetrieveUser response = result.body().as(UserResponse.RetrieveUser.class);
+    assertAll(
+        () -> assertThat(result.statusCode()).isEqualTo(HttpStatus.OK.value()),
+        () -> assertThat(response.user().email()).isEqualTo(email),
+        () -> assertThat(response.user().ignoreFoods()).isNull()
+    );
+
+  }
+
+  @Test
+  @DisplayName("참여자가 자신의 정보를 조회할 수 있다.")
+  void test20230917530236() {
+    // given
+    Long userIdx = 1L;
+    String email = "dlwnsgus777@test.com";
+    MoimRole role = MoimRole.HOST;
+    AuthResponse.SignUp token = Scenario.signInApi().email(email).role(role).request()
+            .signUpApi().request();
+
+    // when
+    ExtractableResponse<Response> result = RestAssured.given().log().all()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .header("Authorization", "Bearer " + token.token())
+            .when()
+            .get("/api/users/" + userIdx)
+            .then().log().all()
+            .extract();
+
+    // then
+    UserResponse.RetrieveUser response = result.body().as(UserResponse.RetrieveUser.class);
+    assertAll(
+            () -> assertThat(result.statusCode()).isEqualTo(HttpStatus.OK.value()),
+            () -> assertThat(response.user().email()).isEqualTo(email),
+            () -> assertThat(response.user().company()).isNull()
+    );
   }
 }

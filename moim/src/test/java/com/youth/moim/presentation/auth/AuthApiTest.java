@@ -4,7 +4,7 @@ package com.youth.moim.presentation.auth;
 import com.youth.moim.ApiTest;
 import com.youth.moim.api.Scenario;
 import com.youth.moim.domain.user.Gender;
-import com.youth.moim.domain.user.MoimRule;
+import com.youth.moim.domain.user.MoimRole;
 import com.youth.moim.domain.user.User;
 import com.youth.moim.infrastructure.user.UserRepository;
 import io.restassured.RestAssured;
@@ -19,10 +19,9 @@ import org.springframework.http.MediaType;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("유저 관련 API 테스트")
+@DisplayName("인증 관련 API 테스트")
 public class AuthApiTest extends ApiTest {
   @Autowired
   private UserRepository userRepository;
@@ -42,17 +41,17 @@ public class AuthApiTest extends ApiTest {
     assertThat(user.getIgnoreFoods()).isNull();
     assertThat(user.getDescription()).isNull();
     assertThat(user.getPassword()).isNotEqualTo(password);
-    assertThat(user.getRule()).isEqualTo(MoimRule.ORGANIZER);
+    assertThat(user.getRole()).isEqualTo(MoimRole.ORGANIZER);
   }
 
   @Test
   @DisplayName("모임 참여자 유저 저장 테스트")
   void test20230914183028() {
     //given
-    MoimRule rule = MoimRule.HOST;
+    MoimRole role = MoimRole.HOST;
     String email = "dlwnsgus777@test.com";
     String password = "!2Password";
-    Scenario.signInApi().email(email).password(password).rule(rule).request();
+    Scenario.signInApi().email(email).password(password).role(role).request();
 
 
     // then
@@ -62,7 +61,7 @@ public class AuthApiTest extends ApiTest {
     assertThat(user.getIgnoreFoods()).isNotNull();
     assertThat(user.getDescription()).isNotNull();
     assertThat(user.getPassword()).isNotEqualTo(password);
-    assertThat(user.getRule()).isEqualTo(MoimRule.HOST);
+    assertThat(user.getRole()).isEqualTo(MoimRole.HOST);
   }
 
   @Test
@@ -80,7 +79,7 @@ public class AuthApiTest extends ApiTest {
             "새우"
     );
     String description = "description";
-    MoimRule rule = MoimRule.ORGANIZER;
+    MoimRole role = MoimRole.ORGANIZER;
     AuthRequest.SignIn request = new AuthRequest.SignIn(
             name,
             birth,
@@ -91,7 +90,7 @@ public class AuthApiTest extends ApiTest {
             company,
             ignoreFoods,
             description,
-            rule
+            role
     );
 
 
@@ -132,5 +131,4 @@ public class AuthApiTest extends ApiTest {
     AuthResponse.SignUp signUp = result.body().as(AuthResponse.SignUp.class);
     assertThat(signUp.token()).isNotNull();
   }
-
 }
