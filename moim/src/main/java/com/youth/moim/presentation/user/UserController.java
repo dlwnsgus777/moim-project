@@ -16,6 +16,9 @@ public class UserController {
     @GetMapping("/{idx}")
     public UserResponse.RetrieveUser retrieveUser(@PathVariable(value = "idx") Long idx,
                                                   @AuthenticationPrincipal(expression = "loginUser") LoginUser user) {
+        if (!idx.equals(user.getIdx())) {
+            throw new IllegalArgumentException("잘못된 요청입니다.");
+        }
 
         UserInfo.Main result = userService.retrieveUser(idx);
         return UserResponse.RetrieveUser.builder().user(result).build();
