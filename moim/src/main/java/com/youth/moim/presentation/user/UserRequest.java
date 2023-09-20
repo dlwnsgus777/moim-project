@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class UserRequest {
     public record ModifyUser(
+        Long idx,
         @NotBlank(message = "이름을 입력해주세요.")
         String name,
 
@@ -45,6 +46,14 @@ public class UserRequest {
     ) {
         @Builder
         public ModifyUser {
+        }
+
+        public String getIgnoreFoods() {
+            if (ignoreFoods == null || ignoreFoods.isEmpty()) {
+                return null;
+            }
+
+            return this.ignoreFoods.stream().collect(Collectors.joining(","));
         }
     }
     public record SignIn(

@@ -117,7 +117,7 @@ public class UserApiTest extends ApiTest {
             .orElseThrow(() -> new IllegalArgumentException("테스트 실패"));
 
         assertAll(
-            () -> assertThat(result.statusCode()).isEqualTo(HttpStatus.OK.value()),
+            () -> assertThat(result.statusCode()).isEqualTo(HttpStatus.NO_CONTENT.value()),
             () -> assertThat(user.getName()).isEqualTo(changeName),
             () -> assertThat(beforeUser.getName()).isEqualTo(name)
         );

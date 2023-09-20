@@ -32,4 +32,10 @@ public class UserService {
         User user = userReader.getByIdx(idx);
         return UserInfo.Main.of(user);
     }
+
+    @Transactional
+    public void modifyUser(final Long idx, final UserRequest.ModifyUser request) {
+        final User user = userReader.getByIdx(idx);
+        user.modifyInfo(request);
+    }
 }
