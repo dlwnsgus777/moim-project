@@ -58,17 +58,17 @@ public class User {
 
     @Builder
     public User(
-            Long idx,
-            String name,
-            LocalDate birth,
-            Gender gender,
-            String id,
-            String password,
-            String email,
-            MoimRole role,
-            String company,
-            String ignoreFoods,
-            String description
+        Long idx,
+        String name,
+        LocalDate birth,
+        Gender gender,
+        String id,
+        String password,
+        String email,
+        MoimRole role,
+        String company,
+        String ignoreFoods,
+        String description
     ) {
         this.idx = idx;
         this.name = name;

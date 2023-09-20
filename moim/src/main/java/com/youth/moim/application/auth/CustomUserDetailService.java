@@ -13,15 +13,15 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
-  private final UserReader userReader;
+    private final UserReader userReader;
 
-  @Override
-  public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-    User user = userReader.getByLoginId(id);
-    LoginUser loginUser = LoginUser.builder()
+    @Override
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        User user = userReader.getByLoginId(id);
+        LoginUser loginUser = LoginUser.builder()
             .idx(user.getIdx())
             .id(user.getId())
             .build();
-    return new LoginUserAdapter(loginUser, user.getPassword());
-  }
+        return new LoginUserAdapter(loginUser, user.getPassword());
+    }
 }

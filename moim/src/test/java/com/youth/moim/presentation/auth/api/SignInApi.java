@@ -20,7 +20,7 @@ public class SignInApi {
     private String email = "dlwnsgus777@test.com";
     private String company = "company";
     private List<String> ignoreFoods = List.of(
-            "새우"
+        "새우"
     );
     private String description = "description";
     private MoimRole role = MoimRole.ORGANIZER;
@@ -77,25 +77,25 @@ public class SignInApi {
 
     public Scenario request() {
         AuthRequest.SignIn request = new AuthRequest.SignIn(
-                name,
-                birth,
-                gender,
-                id,
-                password,
-                email,
-                company,
-                ignoreFoods,
-                description,
-                role
+            name,
+            birth,
+            gender,
+            id,
+            password,
+            email,
+            company,
+            ignoreFoods,
+            description,
+            role
         );
 
         RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(request)
-                .when()
-                .post("/api/auth/sign-in")
-                .then().log().all()
-                .statusCode(HttpStatus.CREATED.value());
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(request)
+            .when()
+            .post("/api/auth/sign-in")
+            .then().log().all()
+            .statusCode(HttpStatus.CREATED.value());
 
         return new Scenario();
 

@@ -5,7 +5,7 @@ import lombok.Builder;
 
 public class UserResponse {
     public record RetrieveUser(
-            UserInfo.Main user
+        UserInfo.Main user
     ) {
         @Builder
         public RetrieveUser {
