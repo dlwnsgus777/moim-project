@@ -122,4 +122,38 @@ public class UserApiTest extends ApiTest {
             () -> assertThat(beforeUser.getName()).isEqualTo(name)
         );
     }
+
+    @Test
+    @DisplayName("참여자가 자신의 비밀번호를 수정할때 비밀번호 규칙을 체크한다.")
+    void test20230917530206() {
+        // given
+        Long userIdx = 1L;
+        String email = "dlwnsgus777@test.com";
+        String name = "name";
+        String changeName = "changeName";
+        String password = "123";
+        MoimRole role = MoimRole.HOST;
+        AuthResponse.SignUp token = Scenario.signInApi().email(email).role(role).name(name).request()
+                .signUpApi().request();
+
+        UserRequest.ModifyUser request =  UserRequest.ModifyUser.builder()
+                .name(changeName)
+                .password(password)
+                .build();
+        final User beforeUser = userRepository.findByIdx(userIdx)
+                .orElseThrow(() -> new IllegalArgumentException("테스트 실패"));
+
+        // when
+        ExtractableResponse<Response> result = RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("Authorization", "Bearer " + token.token())
+                .body(request)
+                .when()
+                .patch("/api/users/" + userIdx)
+                .then().log().all()
+                .extract();
+
+        // then
+        assertThat(result.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
 }
