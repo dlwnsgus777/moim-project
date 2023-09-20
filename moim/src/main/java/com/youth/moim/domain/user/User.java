@@ -94,4 +94,12 @@ public class User {
         if (request.getIgnoreFoods() != null) this.ignoreFoods = request.getIgnoreFoods();
         if (request.description() != null) this.description = request.description();
     }
+
+    public void changeRole() {
+        if (this.role.equals(MoimRole.ORGANIZER)) {
+            this.role = MoimRole.HOST;
+        } else {
+            this.role = MoimRole.ORGANIZER;
+        }
+    }
 }

@@ -111,7 +111,7 @@ public class UserApiTest extends ApiTest {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header("Authorization", "Bearer " + token.token())
             .when()
-            .get("/api/users/" + userIdx + "/change-role")
+            .post("/api/users/" + userIdx + "/change-role")
             .then().log().all()
             .statusCode(HttpStatus.NO_CONTENT.value())
             .extract();

@@ -38,4 +38,10 @@ public class UserService {
         final User user = userReader.getByIdx(idx);
         user.modifyInfo(request);
     }
+
+    @Transactional
+    public void changeUserRole(final Long idx) {
+        final User user = userReader.getByIdx(idx);
+        user.changeRole();
+    }
 }
