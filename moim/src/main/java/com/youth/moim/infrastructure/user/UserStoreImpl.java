@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserStoreImpl implements UserStore {
     private final UserRepository userRepository;
+
     public void registerUser(User entity) {
         userRepository.save(entity);
     }

@@ -1,6 +1,7 @@
 package com.youth.moim.domain.user;
 
 
+import com.youth.moim.presentation.user.UserRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -58,17 +59,17 @@ public class User {
 
     @Builder
     public User(
-            Long idx,
-            String name,
-            LocalDate birth,
-            Gender gender,
-            String id,
-            String password,
-            String email,
-            MoimRole role,
-            String company,
-            String ignoreFoods,
-            String description
+        Long idx,
+        String name,
+        LocalDate birth,
+        Gender gender,
+        String id,
+        String password,
+        String email,
+        MoimRole role,
+        String company,
+        String ignoreFoods,
+        String description
     ) {
         this.idx = idx;
         this.name = name;
@@ -81,5 +82,16 @@ public class User {
         this.company = company;
         this.ignoreFoods = ignoreFoods;
         this.description = description;
+    }
+
+    public void modifyInfo(final UserRequest.ModifyUser request) {
+        if (request.name() != null) this.name = request.name();
+        if (request.birth() != null) this.birth = request.birth();
+        if (request.gender() != null) this.gender = request.gender();
+        if (request.id() != null) this.id = request.id();
+        if (request.password() != null) this.password = request.password();
+        if (request.email() != null) this.email = request.email();
+        if (request.getIgnoreFoods() != null) this.ignoreFoods = request.getIgnoreFoods();
+        if (request.description() != null) this.description = request.description();
     }
 }

@@ -18,19 +18,19 @@ public class CommonExceptionHandler {
         e.printStackTrace();
 
         List<String> errors = e.getBindingResult().getFieldErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.toList());
+            .stream()
+            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .collect(Collectors.toList());
 
         return ResponseEntity.badRequest().body(
-                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), errors.toString())
+            new ErrorResponse(HttpStatus.BAD_REQUEST.value(), errors.toString())
         );
     }
 
     public record ErrorResponse(
-            int statusCode,
-            String message,
-            LocalDateTime time
+        int statusCode,
+        String message,
+        LocalDateTime time
     ) {
         public ErrorResponse(int statusCode, String message) {
             this(statusCode, message, LocalDateTime.now());

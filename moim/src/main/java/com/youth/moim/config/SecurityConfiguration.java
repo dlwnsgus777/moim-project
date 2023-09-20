@@ -25,15 +25,15 @@ public class SecurityConfiguration {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> {
-              session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             })
             .authorizeHttpRequests(request -> {
-              request.requestMatchers("/api/auth/**").permitAll();
+                request.requestMatchers("/api/auth/**").permitAll();
             }).authorizeHttpRequests(request -> {
                 request.anyRequest().authenticated();
             });
@@ -41,11 +41,11 @@ public class SecurityConfiguration {
         http.addFilterBefore(new JwtTokenFilter(jwtTokenProvider), ExceptionTranslationFilter.class);
 
         http.exceptionHandling((exceptionHandling) ->
-              exceptionHandling
-                      .accessDeniedHandler(jwtAccessDeniedHandler)
-                      .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-      );
+            exceptionHandling
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+        );
 
-    return http.build();
-  }
+        return http.build();
+    }
 }

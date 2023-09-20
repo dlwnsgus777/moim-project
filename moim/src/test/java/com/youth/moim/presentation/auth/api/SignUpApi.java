@@ -23,17 +23,17 @@ public class SignUpApi {
 
     public AuthResponse.SignUp request() {
         AuthRequest.SignUp request = new AuthRequest.SignUp(
-                loginId,
-                password
+            loginId,
+            password
         );
 
         ExtractableResponse<Response> result = RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(request)
-                .when()
-                .post("/api/auth/sign-up")
-                .then().log().all()
-                .extract();
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(request)
+            .when()
+            .post("/api/auth/sign-up")
+            .then().log().all()
+            .extract();
 
         return result.body().as(AuthResponse.SignUp.class);
 
