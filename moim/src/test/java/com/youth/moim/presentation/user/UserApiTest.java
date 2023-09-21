@@ -93,12 +93,17 @@ public class UserApiTest extends ApiTest {
     MoimRole role = MoimRole.HOST;
     AuthResponse.SignUp token = Scenario.signInApi().email(email).role(role).request()
             .signUpApi().request();
+    final String company = "테스트";
+    UserRequest.ChangeRole request = UserRequest.ChangeRole.builder()
+        .company(company)
+        .role(MoimRole.ORGANIZER)
+        .build();
 
     // when
     ExtractableResponse<Response> getUserApiCall = RestAssured.given().log().all()
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header("Authorization", "Bearer " + token.token())
-            .when()
+            .body(request)
             .get("/api/users/" + userIdx)
             .then().log().all()
             .extract();
@@ -110,6 +115,7 @@ public class UserApiTest extends ApiTest {
     RestAssured.given().log().all()
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header("Authorization", "Bearer " + token.token())
+            .body(request)
             .when()
             .post("/api/users/" + userIdx + "/change-role")
             .then().log().all()
@@ -122,7 +128,8 @@ public class UserApiTest extends ApiTest {
     // then
     assertAll(
             () -> assertThat(beforeUser.getRole()).isEqualTo(MoimRole.HOST),
-            () -> assertThat(afterUser.getRole()).isEqualTo(MoimRole.ORGANIZER)
+            () -> assertThat(afterUser.getRole()).isEqualTo(MoimRole.ORGANIZER),
+            () -> assertThat(afterUser.getCompany()).isEqualTo(company)
     );
   }
 
