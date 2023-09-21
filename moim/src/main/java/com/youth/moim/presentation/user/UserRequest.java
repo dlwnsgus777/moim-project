@@ -113,5 +113,13 @@ public class UserRequest {
         @Builder
         public ChangeRole {
         }
+
+        public String getIgnoreFoods() {
+            if (ignoreFoods == null || ignoreFoods.isEmpty()) {
+                return null;
+            }
+
+            return this.ignoreFoods.stream().collect(Collectors.joining(","));
+        }
     }
 }

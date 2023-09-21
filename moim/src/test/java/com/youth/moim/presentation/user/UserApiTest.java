@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -131,6 +132,33 @@ public class UserApiTest extends ApiTest {
             () -> assertThat(afterUser.getRole()).isEqualTo(MoimRole.ORGANIZER),
             () -> assertThat(afterUser.getCompany()).isEqualTo(company)
     );
+  }
+
+  @Test
+  @DisplayName("참여자가 자신의 역할을 변경할 때 추가 정보를 제공하지 않으면 실패한다.")
+  void test20230807530236() {
+    // given
+    Long userIdx = 1L;
+    String email = "dlwnsgus777@test.com";
+    MoimRole role = MoimRole.HOST;
+    AuthResponse.SignUp token = Scenario.signInApi().email(email).role(role).request()
+        .signUpApi().request();
+    UserRequest.ChangeRole request = UserRequest.ChangeRole.builder()
+        .role(MoimRole.ORGANIZER)
+        .build();
+
+    // when
+    final ExtractableResponse<Response> result = RestAssured.given().log().all()
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .header("Authorization", "Bearer " + token.token())
+        .body(request)
+        .when()
+        .post("/api/users/" + userIdx + "/change-role")
+        .then().log().all()
+        .extract();
+
+    assertThat(result.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+
   }
 
   @Test
