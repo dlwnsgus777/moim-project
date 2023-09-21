@@ -27,6 +27,17 @@ public class CommonExceptionHandler {
         );
     }
 
+    @ExceptionHandler({
+        IllegalArgumentException.class
+    })
+    public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException e) {
+        e.printStackTrace();
+
+        return ResponseEntity.badRequest().body(
+            new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage())
+        );
+    }
+
     public record ErrorResponse(
         int statusCode,
         String message,

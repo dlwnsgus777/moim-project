@@ -5,6 +5,7 @@ import com.youth.moim.domain.user.UserInfo;
 import com.youth.moim.infrastructure.user.UserReaderImpl;
 import com.youth.moim.infrastructure.user.UserStoreImpl;
 import com.youth.moim.presentation.user.UserRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,11 @@ public class UserService {
     public void modifyUser(final Long idx, final UserRequest.ModifyUser request) {
         final User user = userReader.getByIdx(idx);
         user.modifyInfo(request);
+    }
+
+    @Transactional
+    public void changeUserRole(final Long idx, final UserRequest.ChangeRole request) {
+        final User user = userReader.getByIdx(idx);
+        user.changeRole(request);
     }
 }

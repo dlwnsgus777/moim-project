@@ -94,4 +94,26 @@ public class User {
         if (request.getIgnoreFoods() != null) this.ignoreFoods = request.getIgnoreFoods();
         if (request.description() != null) this.description = request.description();
     }
+
+    public void changeRole(final UserRequest.ChangeRole request) {
+        validChangeRole(request);
+        if (this.role.equals(MoimRole.ORGANIZER)) {
+            this.role = MoimRole.HOST;
+            this.description = request.description();
+            this.ignoreFoods = request.getIgnoreFoods();
+        } else {
+            this.role = MoimRole.ORGANIZER;
+            this.company = request.company();
+        }
+    }
+
+    private void validChangeRole(final UserRequest.ChangeRole request) {
+        if (request.role().equals(MoimRole.ORGANIZER) && request.company() == null) {
+            throw new IllegalArgumentException("잘못된 요청입니다.");
+        }
+
+        if (request.role().equals(MoimRole.HOST) && request.description() == null) {
+            throw new IllegalArgumentException("잘못된 요청입니다.");
+        }
+    }
 }

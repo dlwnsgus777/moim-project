@@ -102,4 +102,24 @@ public class UserRequest {
 
         }
     }
+
+    public record ChangeRole(
+        List<String> ignoreFoods,
+        String company,
+        String description,
+        @NotNull(message = "변경할 역할을 선택해주세요.")
+        MoimRole role
+    ) {
+        @Builder
+        public ChangeRole {
+        }
+
+        public String getIgnoreFoods() {
+            if (ignoreFoods == null || ignoreFoods.isEmpty()) {
+                return null;
+            }
+
+            return this.ignoreFoods.stream().collect(Collectors.joining(","));
+        }
+    }
 }

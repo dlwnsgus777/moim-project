@@ -36,4 +36,16 @@ public class UserController {
         }
         userService.modifyUser(idx, request);
     }
+
+    @PostMapping("/{idx}/change-role")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void changeUserRole(@PathVariable(value = "idx") Long idx,
+                               @RequestBody @Valid UserRequest.ChangeRole request,
+                               @AuthenticationPrincipal(expression = "loginUser") LoginUser user) {
+        if (!idx.equals(user.getIdx())) {
+            throw new IllegalArgumentException("잘못된 요청입니다.");
+        }
+
+        userService.changeUserRole(idx, request);
+    }
 }
